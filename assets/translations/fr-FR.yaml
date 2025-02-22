@@ -1,0 +1,144 @@
+enum:
+  menus:
+    home: 'Accueil'
+    exchange: 'Echange'
+    explorer: 'Explorer'
+    news: 'Actualités'
+    chat: 'Messages'
+
+  accountRole:
+    pro: 'Professionnel'
+    user: 'Particulier'
+
+globals:
+  noInternet: "Vous n'êtes pas connecté à internet"
+
+errors:
+  required: 'Veuillez renseigner ce champ'
+  email: 'Adresse e-mail invalide'
+  code: 'Code invalide'
+  password: 'Les mots de passe ne correspondent pas'
+
+fields:
+  # Sign in
+  email: 'Adresse e-mail'
+  emailHint: 'nom@domaine.fr'
+  password: 'Mot de passe'
+  passwordHint: '********'
+
+  # Phone step
+  phone: 'Téléphone mobile (GSM)'
+  phoneHint: 'Numéro de téléphone'
+
+  # Personal step
+  lastName: 'Nom'
+  lastNameHint: "Nom de l'utilisateur"
+  firstName: 'Prénom'
+  firstNameHint: "Prénom de l'utilisateur"
+  address: 'Adresse'
+  addressHint: 'Adresse (rue...)'
+  postalCode: 'Code postal'
+  postalCodeHint: 'Code postal'
+  city: 'Ville'
+  cityHint: 'Ville'
+
+  # Professional
+  corporateName: 'Dénomination'
+  corporateNameHint: 'Nom de l’entreprise'
+  siret: 'SIRET'
+  siretHint: 'Numéro d’identification'
+  manager: 'Nom du responsable'
+  managerHint: 'Nom de la personne autorisée'
+  proFirstName: 'Prénom'
+  proFirstNameHint: 'Prénom de la personne autorisée'
+  domiciliation: 'Domiciliation'
+  domiciliationHint: 'Adresse complète du siège'
+
+buttons:
+  continue: 'Continuer'
+
+dashboard:
+  notConnected:
+    welcome: 'BIENVENUE CHEZ OZAPAY'
+    description: 'Créez votre compte gratuitement en moins de 5mn et profitez de notre super app de paiement multiservices !'
+    why: 'Pourquoi choisir Ozapay ?'
+    1: 'Un Compte IBAN + Une CB Mastercard'
+    2: 'Transférer et Convertir des fonds'
+    3: "Payer et Demander des paiements"
+    4: 'Promouvoir et Gérer mes Bons Plans'
+    5: 'Placer des cryptos sous auto-détention'
+    6: "Accès aux gains & récompenses OZA"
+
+signin:
+  title: 'S’identifier'
+  noAccount: "Je n'ai pas de compte et je souhaite "
+  signIn: "m'inscrire"
+  signinWithPhone: 'Numéro de téléphone'
+  button: 'Se connecter par SMS'
+  button2: 'Se connecter par mail'
+
+signup:
+  title: 'Créer un compte'
+
+  steps:
+    choice: 'Créer un compte'
+    info: 'Informations personnelles'
+    proInfo: 'Informations professionnelles'
+    phone: 'Confirmation par SMS'
+    smsCode: 'Confirmation par SMS'
+    email: 'Association du mail'
+    emailCode: 'Confirmation par e-mail'
+    pin: 'Choisissez un code de sécurité'
+    validatePin: 'Confirmer votre code de sécurité'
+
+  choice:
+    accountType: 'Choix du type du compte'
+    code: 'ID de votre code affilié'
+    contract: 'Contrats'
+    privacy:
+      1: 'J’ai lu et j’accepte les '
+      2: 'Conditions d’utilisation'
+      3: ' et la '
+      4: 'Politique de confidentialité'
+      5: ' de Ozapay'
+    newsletter: 'J’accepte de recevoir les dernières promotions de Ozapay en matière de marketing'
+    haveAccount: "J'ai déjà un compte OZAPAY. "
+
+  smsCode:
+    code: 'Entrez le code à {} chiffres reçu !'
+    timer: 'Nouvelle requête possible après {} secondes'
+    resend: 'Renvoyer un nouveau code'
+
+drawer:
+  main:
+    balanceInAccount: 'Solde de mon COMPTE'
+    showTransactions: 'Voir mes Transactions'
+    menus:
+      1:
+        title: 'Espace Promotionnel'
+        subtitle: 'Promouvoir et gérer des offres'
+      2:
+        title: 'Récompenses'
+        subtitle: 'Affiliations, Gains et Cashback'
+      3:
+        title: 'Recommandations'
+        subtitle: 'Avis et commentaires'
+      4:
+        title: 'Évoluer mon Offre'
+        subtitle: 'Booster mes performances'
+      5:
+        title: 'Challenges OZA'
+        subtitle: 'Gagner des cryptomonnaies'
+      6:
+        title: 'Paramètres'
+        subtitle: 'Réglages et configurations'
+    copyright: '{} - Tous droits réservés à Ozapay®'
+  setting:
+    accountSetting: 'Paramètres du compte'
+    menus:
+      infoPerso: 'Informations personnelles'
+      relation: 'Inviter des relations'
+      identity: 'Vérification d’identité'
+      accountSecurity: 'Sécurités du compte'
+      about: 'À propos de Ozapay'
+      logOut: 'Se Déconnecter'
