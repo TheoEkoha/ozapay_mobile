@@ -12,7 +12,7 @@ import '../interceptors/token_interceptor.dart';
 @module
 abstract class InjectionModule {
   @Named('apiBaseUrl')
-  String get apiBaseUrl => dotenv.get('BASE_URL');
+  String get apiBaseUrl => "https://backoffice.ozapay.me/api";
 
   @Named('jupiterApiUrl')
   String get jupApiUrl => dotenv.get('JUP_API_URL');
