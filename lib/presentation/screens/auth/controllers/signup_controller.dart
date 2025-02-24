@@ -29,6 +29,17 @@ class SignupProvider extends ChangeNotifier {
     formKey.currentState?.reset();
   }
 
+//type
+//appSignature
+
+  RegisterParams? getRegisterParams() {
+    if (formKey?.currentState != null) {
+    Map<String, dynamic> value = Map.from(formKey.currentState!.value);
+    final params = RegisterParams.fromJson(value);
+    return params;
+    }
+  }
+
   void clearValue() {
     formKey.currentState?.reset();
   }

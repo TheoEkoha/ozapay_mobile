@@ -86,7 +86,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               Step(
                 title: Text(SignupStepperEnum.phone.title).tr(),
-                content: const PhoneInfo(),
+                content: PhoneInfo(params: provider.getRegisterParams()),
               ),
               Step(
                 title: Text(SignupStepperEnum.smsCode.title).tr(),

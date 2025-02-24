@@ -6,21 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:ozapay/core/constants.dart';
 import 'package:ozapay/core/http_request/multiple_result.dart';
-import 'package:ozapay/data/services/injection/injection_service.dart';
-import 'package:ozapay/presentation/blocs/auth/auth_bloc.dart';
 import 'package:ozapay/presentation/widgets/widget.dart';
-import 'package:ozapay/data/params/params.dart';
+import 'package:ozapay/data/params/auth/register/register_params.dart';
+import 'package:ozapay/domain/repositories/auth_repository.dart';
 
 class PhoneInfo extends StatefulWidget {
   final String? label;
-  // final int? userId;
+  final int? userId;
   final RegisterParams? params;
+  final AuthRepository authRepository; // AuthRepository pour appeler resendCode
 
   const PhoneInfo({
     Key? key,
     this.label,
-    // this.userId,
+    this.userId,
     this.params,
+    this.authRepository,
   }) : super(key: key);
 
   @override
@@ -48,12 +49,9 @@ Future<void> _resendCode() async {
 
   try {
     // Log des paramètres pour le débogage
-    //"[CODE] input: ${widget.params?.toJson()}".log();
-    //params.toJson()
-    // if (widget?.userId != null && widget?.params != null) {
-    //TODO ICI
-    if (widget?.params != null) {
-      final result = getIt<AuthBloc>()?.repository.resendCode(2386, widget.params!);
+    "[CODE] input: ${widget.params?.toJson()}".log();
+    
+    final result = await widget.authRepository?.resendCode(widget.userId!, widget.params!);
 
     // Log du résultat pour le débogage
     "$result".log();
@@ -68,8 +66,6 @@ Future<void> _resendCode() async {
         SnackBar(content: Text("Une erreur est survenue.")),
       );
     }
-    }
-    
   } on DioException catch (e) {
     // Gérer l'exception en utilisant Failure
     final failure = Failure.fromRequest(e.response);
