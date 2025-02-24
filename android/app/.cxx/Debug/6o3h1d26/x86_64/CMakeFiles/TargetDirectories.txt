@@ -1,0 +1,2 @@
+/Users/theoolivieri/Workspace/OzaPay/ozapay-mobile/android/app/.cxx/Debug/6o3h1d26/x86_64/CMakeFiles/edit_cache.dir
+/Users/theoolivieri/Workspace/OzaPay/ozapay-mobile/android/app/.cxx/Debug/6o3h1d26/x86_64/CMakeFiles/rebuild_cache.dir
