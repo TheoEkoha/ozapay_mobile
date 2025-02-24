@@ -133,7 +133,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 /// if step is not inside it
                 /// it has his proper controller
                 case SignupStepperEnum.info:
-                  onCreateUser(params.copyWith(code: ""));
+                  onCreateUser(params.copyWith(code: ""));//TODO METTRE LE BON CODE
                   break;
                 case SignupStepperEnum.phone:
                   await updatePhone(params);
@@ -153,6 +153,8 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void onCreateUser(RegisterParams params) {
+          "[CODE] onCreateUser: ${params.toJson()}".log();
+
     context.read<AuthBloc>().add(OnRegister(params));
   }
 
@@ -161,10 +163,21 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Future<void> updatePhone(RegisterParams params) async {
+
+      "[CODE] updatePhone: ${params.toJson()}".log();
     final appSignature = await SmsAutoFill().getAppSignature;
 
     "appSignature: $appSignature".log();
 
+  //  final registerParams = {
+  //       'for': CodeServiceEnum.signUpVer,
+  //       'type': CodeTypeEnum.sms,
+  //       'appSignature': appSignature,
+  //       'phone': '+33665723525'
+  //     } as RegisterParams;
+      
+
+      // onPatchUser(registerParams);
     onPatchUser(params.copyWith(
       appSignature: appSignature,
       forService: CodeServiceEnum.signUpVer,
