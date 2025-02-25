@@ -42,24 +42,24 @@ class ConnectedAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        Builder(
-          builder: (context) {
-            return IconButton(
-              onPressed: () {
-                showBottomSheet(
-                  context: context,
-                  enableDrag: true,
-                  builder: (context) => NotificationBottomSheet(),
-                );
-              },
-              icon: SvgPicture.asset(
-                width: kSpacing * 2.5,
-                height: kSpacing * 2.5,
-                'assets/icons/notification.svg',
-              ),
-            );
-          },
-        ),
+        // Builder( 
+        //   builder: (context) {
+        //     return IconButton(
+        //       onPressed: () {
+        //         showBottomSheet(
+        //           context: context,
+        //           enableDrag: true,
+        //           builder: (context) => NotificationBottomSheet(),
+        //         );
+        //       },
+        //       icon: SvgPicture.asset(
+        //         width: kSpacing * 2.5,
+        //         height: kSpacing * 2.5,
+        //         'assets/icons/notification.svg',
+        //       ),
+        //     );
+        //   },
+        // ),
         ...actions
       ],
     );

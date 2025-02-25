@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ozapay/data/enums/enum.dart';
+import 'package:ozapay/presentation/screens/auth/signin/forgot_password.dart';
 
 import 'screens/auth/signin/signin_screen.dart';
 import 'screens/auth/signin/signin_with_phone.dart';
@@ -79,6 +80,12 @@ final router = GoRouter(
           ],
         ),
 
+        GoRoute(
+          path: 'forgot-password',
+          builder: (context, state) {
+            return ForgotPasswordScreen();
+          },
+        ),
         /// Sign up
         GoRoute(
           path: 'signup',

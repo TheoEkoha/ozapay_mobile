@@ -29,15 +29,13 @@ class SignupProvider extends ChangeNotifier {
     formKey.currentState?.reset();
   }
 
-//type
-//appSignature
-
   RegisterParams? getRegisterParams() {
-    if (formKey?.currentState != null) {
-    Map<String, dynamic> value = Map.from(formKey.currentState!.value);
-    final params = RegisterParams.fromJson(value);
-    return params;
+    if (formKey.currentState != null) {
+      Map<String, dynamic> value = Map.from(formKey.currentState!.value);
+      final params = RegisterParams.fromJson(value);
+      return params;
     }
+    return null;
   }
 
   void clearValue() {
@@ -46,18 +44,13 @@ class SignupProvider extends ChangeNotifier {
 
   void validateFields(ValueChanged<RegisterParams>? action) {
     if (formKey.currentState?.saveAndValidate() ?? false) {
-      if (currentStep == SignupStepperEnum.choice) {
-        role = AccountRoleEnum.decoder(formKey.currentState?.value['role']);
-      }
-      if (currentStep == SignupStepperEnum.choice) {
-        role = AccountRoleEnum.decoder(formKey.currentState?.value['role']);
-      }
+      role = AccountRoleEnum.decoder(formKey.currentState?.value['role']);
 
       if (action != null) {
         Map<String, dynamic> value = Map.from(formKey.currentState!.value);
 
         if (value['phone'] != null && value['phone'] is PhoneNumber) {
-          value['phone'] = null;
+          value['phone'] = value['phone'].toString(); // Convertir en String au lieu de null
         }
 
         final params = RegisterParams.fromJson(value);

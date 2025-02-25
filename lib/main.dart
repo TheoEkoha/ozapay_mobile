@@ -7,22 +7,21 @@ import 'package:path_provider/path_provider.dart';
 
 import 'data/services/injection/injection_service.dart';
 import 'presentation/app.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// Load environment
+  // Charger l'environnement
   await dotenv.load(fileName: '.env.prod');
 
-  /// Dependency injection
+  // Injection de dépendances
   await configure();
 
-  // l10n
+  // Initialisation de l10n
   await EasyLocalization.ensureInitialized();
 
+  // Initialiser le stockage HydratedBloc
   HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory:
-        HydratedStorageDirectory((await getTemporaryDirectory()).path),
+    storageDirectory: HydratedStorageDirectory((await getTemporaryDirectory()).path),
   );
 
   runApp(

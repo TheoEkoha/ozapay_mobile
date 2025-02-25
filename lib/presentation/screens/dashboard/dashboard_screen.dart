@@ -43,21 +43,7 @@ class _DashboardState extends State<DashboardScreen> {
                 child: Container(
                   margin: EdgeInsets.only(right: kSpacing * 2.25),
                   constraints: BoxConstraints(maxHeight: 32),
-                  child: FilledButton.icon(
-                    style: FilledButton.styleFrom(
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w600),
-                      backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      disabledBackgroundColor: Color(0xFFB0B0BC),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: kSpacing * 2),
-                    ),
-                    onPressed: null,
-                    icon: Icon(OzapayIcons.nfc, size: 14),
-                    label: Text("PAYER"),
-                  ),
+                  
                 ),
               ),
             ],

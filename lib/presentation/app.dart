@@ -17,33 +17,36 @@ class OzapayApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => SignupProvider()),
+    ],
+    child: MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SignupProvider()),
-      ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-              create: (_) => getIt<AuthBloc>()..add(OnCheckUserIsConnected())),
-          BlocProvider(
-            create: (_) => getIt<UserBloc>(),
-            lazy: false,
-          ),
-          BlocProvider(create: (_) => getIt<WalletBloc>()),
-        ],
-        child: MaterialApp.router(
-          title: 'Ozapay',
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
-            ...context.localizationDelegates,
-            FormBuilderLocalizations.delegate,
-          ],
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          theme: theme(context),
-          routerConfig: router,
+        BlocProvider(
+          create: (_) => getIt<WalletBloc>(),
         ),
+        BlocProvider(
+          create: (_) => getIt<AuthBloc>()..add(OnCheckUserIsConnected()),
+        ),
+        BlocProvider(
+          create: (_) => getIt<UserBloc>(),
+          lazy: false,
+        ),
+      ],
+      child: MaterialApp.router(
+        title: 'Ozapay',
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          ...context.localizationDelegates,
+          FormBuilderLocalizations.delegate,
+        ],
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        theme: theme(context),
+        routerConfig: router,
       ),
-    );
-  }
+    ),
+  );
+}
 }

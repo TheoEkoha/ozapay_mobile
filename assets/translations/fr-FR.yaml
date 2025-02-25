@@ -76,6 +76,7 @@ signin:
   signinWithPhone: 'Numéro de téléphone'
   button: 'Se connecter par SMS'
   button2: 'Se connecter par mail'
+  forgotPassword: 'Mot de passe perdu ?'
 
 signup:
   title: 'Créer un compte'

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Drawer;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ozapay/presentation/blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_bloc.dart';
 
 import 'connected_screen.dart';
 import 'not_connected_screen.dart';

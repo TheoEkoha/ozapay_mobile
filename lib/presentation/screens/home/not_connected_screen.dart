@@ -105,16 +105,44 @@ class NotConnectedScreen extends StatelessWidget {
                                   ),
                             ).tr(),
                             const SizedBox(height: kSpacing * 3),
-                            const Align(
-                              alignment: Alignment.centerRight,
+                            GestureDetector(
+                              onTap: () => {
+                                context.push("/forgot-password")
+                              }, child:
+                            // Bouton "Mot de passe oublié" avec soulignement espacé
+                            Align(
+                              alignment: Alignment.centerLeft,
                               child: Padding(
                                 padding: EdgeInsets.all(kSpacing),
-                                child: Icon(
-                                  OzapayIcons.play,
-                                  size: kSpacing * 7,
+                                child: Stack(
+                                  children: [
+                                    // Soulignement blanc, espacé de 2px sous le texte
+                                    Positioned(
+                                      bottom: -1,
+                                      left: 0,
+                                      child: Container(
+                                        width: 140, // Ajuste la largeur en fonction du texte
+                                        height: 2,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    // Texte
+                                    Text(
+                                      "signin.forgotPassword",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium
+                                          ?.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.2,
+                                          ),
+                                    ).tr(),
+                                  ],
                                 ),
                               ),
                             ),
+                        )
                           ],
                         ),
                       ),
