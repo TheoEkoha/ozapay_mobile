@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:ozapay/core/extension.dart';
@@ -242,6 +243,9 @@ Future<bool> checkUserIsConnected() async {
 
   if (userId == null) return false;
 
+  final response = await http.get(Uri.parse("https://backoffice.ozapay.me/api/users?email=olivieri.theo%40gmail.com"));
+  print("Response: ${response.body}");
+
   final user = await datasource.findByUserId(userId);
   print("User is connected dans home screen: user $user");
   print(user?.isLogged);
@@ -262,6 +266,11 @@ Future<bool> checkUserIsConnected() async {
   _decodeAndSaveUser(LoginEntity login) async {
     final decodedToken = JwtDecoder.decode(login.token);
     final userResult = await getUserByEmail(decodedToken['username']);
+
+  if (userResult.getSuccess == null) {
+    print("No user found for username and mail: ${decodedToken['username']}");
+    return; // Quitte la fonction si aucun utilisateur n'est trouvé
+  }
 
     await Future.wait([
       prefs.setAccessToken(login.token),

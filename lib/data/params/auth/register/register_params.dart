@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ozapay/data/enums/enum.dart';
+import 'package:ozapay/presentation/widgets/widget.dart';
 
 part 'register_params.g.dart';
 
@@ -25,6 +26,8 @@ class RegisterParams extends Equatable {
       phone,
       country;
 
+  final List<String>? roles;
+
   @JsonKey(name: "_step")
   final String? step;
 
@@ -45,6 +48,7 @@ class RegisterParams extends Equatable {
     this.siret,
     this.denomination,
     this.role,
+    this.roles,
     this.forService,
     this.phone,
     this.email,
@@ -74,6 +78,7 @@ class RegisterParams extends Equatable {
         siret,
         denomination,
         role,
+        roles,
         id,
         forService,
         phone,
@@ -96,9 +101,10 @@ class RegisterParams extends Equatable {
     String? siret,
     String? denomination,
     String? role,
+    List<String>? roles,
     CodeServiceEnum? forService,
     CodeTypeEnum? type,
-    String? phone,
+    dynamic phone,
     String? email,
     String? pin,
     String? confirmPin,
@@ -118,9 +124,10 @@ class RegisterParams extends Equatable {
       siret: siret ?? this.siret,
       denomination: denomination ?? this.denomination,
       role: role ?? this.role,
+      roles: roles ?? this.roles,
       forService: forService ?? this.forService,
       type: type ?? this.type,
-      phone: phone ?? this.phone,
+      phone: phone is PhoneNumber ? phone.phoneNumber : phone as String?, // ✅ Conversion correcte
       email: email ?? this.email,
       pin: pin ?? this.pin,
       confirmPin: confirmPin,
