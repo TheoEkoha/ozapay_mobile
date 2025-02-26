@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' hide Drawer;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ozapay/core/constants.dart';
+import 'package:ozapay/presentation/blocs/wallet/wallet_bloc.dart';
 import 'package:ozapay/presentation/widgets/widget.dart';
 
 import '../../dashboard/drawer.dart';
@@ -43,7 +45,7 @@ class AllTransactionScreen extends StatelessWidget {
         padding: EdgeInsets.only(top: kSpacing),
         child: RecentTransactions(
           onRefresh: () {
-            //context.read<WalletBloc>().add(OnTransactionHistoryGot(limit: 20));
+            context.read<WalletBloc>().add(OnTransactionHistoryGot(limit: 20));
           },
           button: InkWell(
             onTap: () {

@@ -27,7 +27,6 @@ class _ConnectedScreenState extends State<ConnectedScreen> {
   void initState() {
     context.read<UserBloc>().add(OnUserInfoFetched());
     context.read<WalletBloc>().add(OnWalletGot());
-
     super.initState();
   }
 

@@ -38,14 +38,6 @@ class _DashboardState extends State<DashboardScreen> {
         return Scaffold(
           appBar: ConnectedAppbar(
             actions: [
-              Transform.translate(
-                offset: Offset(0, -2.2),
-                child: Container(
-                  margin: EdgeInsets.only(right: kSpacing * 2.25),
-                  constraints: BoxConstraints(maxHeight: 32),
-                  
-                ),
-              ),
             ],
           ),
           drawer: userIsConnected ? const Drawer() : null,

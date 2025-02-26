@@ -235,23 +235,30 @@ class AuthRepositoryImpl extends AuthRepository {
     ]);
     return futures.every((it) => it);
   }
+@override
+Future<bool> checkUserIsConnected() async {
+  final userId = prefs.getUserId();
+  print("User is connected dans home screen userId: $userId");
 
-  @override
-  Future<bool> checkUserIsConnected() async {
-    final userId = prefs.getUserId();
-    if (userId == null) return false;
+  if (userId == null) return false;
 
-    final user = await datasource.findByUserId(userId);
+  final user = await datasource.findByUserId(userId);
+  print("User is connected dans home screen: user $user");
+  print(user?.isLogged);
 
-    if (user != null && (user.isLogged ?? true)) {
-      final result = await refreshToken(RefreshTokenParams(user.refreshToken!));
+  if (user != null && (user.isLogged ?? true)) {
+    final result = await refreshToken(RefreshTokenParams(user.refreshToken!));
+    print("User is connected dans home screen: Token refresh result: $result");
 
-      if (result.isError) return false;
+    // Vérification de l'erreur lors du rafraîchissement du token
+    if (result.isError) {
+      print("Token refresh failed, user not connected");
+      return false;
     }
-
-    return user != null && (user.isLogged ?? true);
   }
 
+  return user != null && (user.isLogged ?? true);
+}
   _decodeAndSaveUser(LoginEntity login) async {
     final decodedToken = JwtDecoder.decode(login.token);
     final userResult = await getUserByEmail(decodedToken['username']);

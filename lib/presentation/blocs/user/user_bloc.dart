@@ -28,48 +28,63 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<OnPasswordUpdated>(_onPasswordUpdated, transformer: droppable());
   }
 
-  FutureOr<void> _onUserInfoFetched(
-    OnUserInfoFetched event,
-    Emitter<UserState> emit,
-  ) async {
-    emit(state.copyWith(
-      status: LoadingStatus(),
-      failure: null,
-    ));
-    final token = prefs.getAccessToken();
+    FutureOr<void> _onUserInfoFetched(
+  OnUserInfoFetched event,
+  Emitter<UserState> emit,
+) async {
+  emit(state.copyWith(
+    status: LoadingStatus(),
+    failure: null,
+  ));
+  final token = prefs.getAccessToken();
 
-    if (token != null) {
-      final decodedToken = JwtDecoder.decode(token);
+  if (token != null) {
+    final decodedToken = JwtDecoder.decode(token);
+    final email = decodedToken['username']; // Assurez-vous que c'est bien l'email
 
-      try {
-        final res = await repository.getUserByEmail(decodedToken['username']);
-        "haswallet: ${res.getSuccess?.hasWallet}".log();
+    try {
+      final res = await repository.getUserByEmail(email);
+      
+      // Vérifie si le résultat contient un utilisateur valide
+      if (res.getSuccess != null) {
+        final user = res.getSuccess;
+        
+        // Utilise l'opérateur de navigation sécurisée
+        print("hasWallet: ${user?.hasWallet}"); // Log de hasWallet
 
         emit(
           state.copyWith(
-            user: res.getSuccess,
+            user: user,
             failure: res.getError,
-            status: res.getError != null ? ErrorStatus() : LoadedStatus(),
+            status: LoadedStatus(), // Changer le statut à LoadedStatus
           ),
         );
-      } catch (e) {
+      } else {
+        // Gérer le cas où l'utilisateur n'est pas trouvé
         emit(
           state.copyWith(
             status: ErrorStatus(),
-            failure: e as Failure,
+            failure: UnAuthorizedFailure(["USER NOT FOUND"]), // Utilise un message d'erreur
           ),
         );
       }
-    } else {
+    } catch (e) {
       emit(
         state.copyWith(
           status: ErrorStatus(),
-          failure: UnAuthorizedFailure([]),
+          failure: e as Failure,
         ),
       );
     }
+  } else {
+    emit(
+      state.copyWith(
+        status: ErrorStatus(),
+        failure: UnAuthorizedFailure([]),
+      ),
+    );
   }
-
+}
   FutureOr<void> _onUserInfoUpdated(
     OnUserInfoUpdated event,
     Emitter<UserState> emit,

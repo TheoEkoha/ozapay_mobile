@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ozapay/core/constants.dart';
 
-import '../screens/wallet/bottom_sheet/notification_bottom_sheet.dart';
 import 'ozapay_icons.dart';
 
 class ConnectedAppbar extends StatelessWidget implements PreferredSizeWidget {
