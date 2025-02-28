@@ -23,6 +23,7 @@ class AuthRepositoryImpl extends AuthRepository {
   final HttpClient client;
   final PrefsService prefs;
   final UserDatasource datasource;
+  //int? get userId => prefs.getUserId();
 
   AuthRepositoryImpl(this.client, this.prefs, this.datasource);
 
@@ -81,6 +82,20 @@ class AuthRepositoryImpl extends AuthRepository {
       "[PATCH USER] input: ${params.toJson()}".log();
 
       final res = await client.patchUser(userId, params.toJson());
+      return ResultSuccess(UserModel.fromJson(res));
+    } on DioException catch (e) {
+      final failure = Failure.fromRequest(e.response);
+      return ResultError(failure);
+    }
+  }
+
+    @override
+  Future<MultipleResult<Failure, UserEntity>> getUserProfile(
+      int userId) async {
+    try {
+      "[GET USER PROFIL]".log();
+
+      final res = await client.getUserProfile(userId);
       return ResultSuccess(UserModel.fromJson(res));
     } on DioException catch (e) {
       final failure = Failure.fromRequest(e.response);
@@ -238,33 +253,37 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 @override
 Future<bool> checkUserIsConnected() async {
-  final userId = prefs.getUserId();
-  print("User is connected dans home screen userId: $userId");
+//   final userId = prefs.getUserId();
+//   print("User is connected dans home screen userId: $userId");
 
-  if (userId == null) return false;
-  
-  final id = userId.toString();
-  final response = await http.get(Uri.parse("https://backoffice.ozapay.me/api/users/profile/$id"));
-  print("Response: ${response.body}");
+//  if (userId == null) return false;
 
-  //final user = await datasource.findByUserId(userId);
-  
-  final user = response.body;
+//   final id = int.tryParse(userId.toString());  // Convertir en entier
+//   if (id == null) {
+//     print("Erreur : userId n'est pas un entier valide !");
+//     return false;
+//   }
 
-  // if (user != null && (user.isLogged ?? true)) {
-  // if (user != null) {
-  //   final result = await refreshToken(RefreshTokenParams(user.refreshToken!));
-  //   print("User is connected dans home screen: Token refresh result: $result");
+//   final user = await getUserProfile(userId!);
+//   print("Response: ${user}");
+//   print("Response: ${userId}");
 
-  //   // Vérification de l'erreur lors du rafraîchissement du token
-  //   if (result.isError) {
-  //     print("Token refresh failed, user not connected");
-  //     return false;
-  //   }
-  // }
+//   // ignore: unnecessary_null_comparison
+//   return user != null;
+//   // ignore: unnecessary_null_comparison
+//   // return false;
+final userId = prefs.getUserId();
+    if (userId == null) return false;
 
-  // return user != null && (user.isLogged ?? true);
-  return user != null;
+    final user = await datasource.findByUserId(userId);
+
+    if (user != null && (user.isLogged ?? true)) {
+      final result = await refreshToken(RefreshTokenParams(user.refreshToken!));
+
+      if (result.isError) return false;
+    }
+
+    return user != null && (user.isLogged ?? true);
 }
   _decodeAndSaveUser(LoginEntity login) async {
     final decodedToken = JwtDecoder.decode(login.token);

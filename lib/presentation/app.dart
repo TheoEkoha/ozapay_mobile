@@ -23,17 +23,14 @@ class OzapayApp extends StatelessWidget {
     ],
     child: MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => getIt<WalletBloc>(),
-        ),
-        BlocProvider(
-          create: (_) => getIt<AuthBloc>()..add(OnCheckUserIsConnected()),
-        ),
-        BlocProvider(
-          create: (_) => getIt<UserBloc>(),
-          lazy: false,
-        ),
-      ],
+          BlocProvider(
+              create: (_) => getIt<AuthBloc>()..add(OnCheckUserIsConnected())),
+          BlocProvider(
+            create: (_) => getIt<UserBloc>(),
+            lazy: false,
+          ),
+          BlocProvider(create: (_) => getIt<WalletBloc>()),
+        ],
       child: MaterialApp.router(
         title: 'Ozapay',
         debugShowCheckedModeBanner: false,

@@ -35,6 +35,9 @@ abstract class HttpClient {
   @PATCH('/user/{id}')
   Future patchUser(@Path('id') int id, @Body() Map<String, dynamic> body);
 
+  @GET('/user/profile/{id}')
+  Future getUserProfile(@Path('id') int id);
+
   @POST("/user/verify/{id}")
   Future verifyCode(@Path('id') int id, @Body() Map<String, dynamic> body);
 

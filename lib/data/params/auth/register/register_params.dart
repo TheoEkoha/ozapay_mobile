@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 
 import 'package:json_annotation/json_annotation.dart';
@@ -114,6 +116,7 @@ class RegisterParams extends Equatable {
     bool? hasWallet,
     String? step,
   }) {
+    //"[CODE] REGISTER: ${phone.toString()}".log();
     return RegisterParams(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
@@ -127,7 +130,7 @@ class RegisterParams extends Equatable {
       roles: roles ?? this.roles,
       forService: forService ?? this.forService,
       type: type ?? this.type,
-      phone: phone is PhoneNumber ? phone.phoneNumber : phone as String?, // ✅ Conversion correcte
+      phone: phone ?? this.phone,
       email: email ?? this.email,
       pin: pin ?? this.pin,
       confirmPin: confirmPin,

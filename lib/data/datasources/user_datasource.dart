@@ -13,10 +13,7 @@ class UserDatasource {
   UserDatasource(Isar isar) : _isar = isar;
 
   Future<LocalUser?> findByUserId(int userId) async {
-      print("Recherche de l'utilisateur avec id: $userId");
-    final user = await _isar.users.filter().idEqualTo(userId).findFirst();
-    print("Utilisateur trouvé: ${user != null ? user.id : 'null'}");
-    return user;
+    return _isar.users.filter().userIdEqualTo(userId).findFirst();
   }
 
   Future<void> saveUser(

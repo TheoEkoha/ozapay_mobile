@@ -19,6 +19,10 @@ abstract class AuthRepository {
   /// Met à jour les informations d'un utilisateur existant.
   Future<MultipleResult<Failure, UserEntity>> patchUser(int userId, RegisterParams params);
 
+  /// Récuperer les informations d'un utilisateur existant.
+  Future<MultipleResult<Failure, UserEntity>> getUserProfile(int userId);
+
+
   /// Vérifie le code de vérification envoyé à l'utilisateur.
   Future<MultipleResult<Failure, dynamic>> verifyCode(int userId, RegisterParams params);
 
