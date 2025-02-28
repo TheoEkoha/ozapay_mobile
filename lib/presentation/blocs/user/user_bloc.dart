@@ -4,7 +4,6 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:ozapay/core/extension.dart';
 import 'package:ozapay/core/http_request/multiple_result.dart';
 import 'package:ozapay/data/params/auth/register/register_params.dart';
 import 'package:ozapay/data/params/auth/security/update_password_params.dart';
@@ -72,7 +71,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(
         state.copyWith(
           status: ErrorStatus(),
-          failure: e as Failure,
+          failure: e is Failure ? e : UnknownFailure([e.toString()]), // Évite le cast direct
         ),
       );
     }

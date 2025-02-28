@@ -242,26 +242,29 @@ Future<bool> checkUserIsConnected() async {
   print("User is connected dans home screen userId: $userId");
 
   if (userId == null) return false;
-
-  final response = await http.get(Uri.parse("https://backoffice.ozapay.me/api/users?email=olivieri.theo%40gmail.com"));
+  
+  final id = userId.toString();
+  final response = await http.get(Uri.parse("https://backoffice.ozapay.me/api/users/profile/$id"));
   print("Response: ${response.body}");
 
-  final user = await datasource.findByUserId(userId);
-  print("User is connected dans home screen: user $user");
-  print(user?.isLogged);
+  //final user = await datasource.findByUserId(userId);
+  
+  final user = response.body;
 
-  if (user != null && (user.isLogged ?? true)) {
-    final result = await refreshToken(RefreshTokenParams(user.refreshToken!));
-    print("User is connected dans home screen: Token refresh result: $result");
+  // if (user != null && (user.isLogged ?? true)) {
+  // if (user != null) {
+  //   final result = await refreshToken(RefreshTokenParams(user.refreshToken!));
+  //   print("User is connected dans home screen: Token refresh result: $result");
 
-    // Vérification de l'erreur lors du rafraîchissement du token
-    if (result.isError) {
-      print("Token refresh failed, user not connected");
-      return false;
-    }
-  }
+  //   // Vérification de l'erreur lors du rafraîchissement du token
+  //   if (result.isError) {
+  //     print("Token refresh failed, user not connected");
+  //     return false;
+  //   }
+  // }
 
-  return user != null && (user.isLogged ?? true);
+  // return user != null && (user.isLogged ?? true);
+  return user != null;
 }
   _decodeAndSaveUser(LoginEntity login) async {
     final decodedToken = JwtDecoder.decode(login.token);

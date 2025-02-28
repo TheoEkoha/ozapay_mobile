@@ -1,25 +1,17 @@
-import 'dart:io';
-import 'package:dio/dio.dart';
-import 'package:ozapay/core/extension.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:ozapay/core/constants.dart';
-import 'package:ozapay/core/http_request/multiple_result.dart';
-import 'package:ozapay/data/services/injection/injection_service.dart';
-import 'package:ozapay/presentation/blocs/auth/auth_bloc.dart';
 import 'package:ozapay/presentation/widgets/widget.dart';
 import 'package:ozapay/data/params/params.dart';
 
 class PhoneInfo extends StatefulWidget {
   final String? label;
-  // final int? userId;
   final RegisterParams? params;
 
   const PhoneInfo({
     Key? key,
     this.label,
-    // this.userId,
     this.params,
   }) : super(key: key);
 
@@ -28,71 +20,6 @@ class PhoneInfo extends StatefulWidget {
 }
 
 class _PhoneInfoState extends State<PhoneInfo> {
-  bool _isResending = false;
-
-Future<void> _resendCode() async {
-  setState(() {
-    _isResending = true;
-  });
-
-  // Assurez-vous que widget.params n'est pas nul
-  if (widget.params == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Parameters are missing.")),
-    );
-    setState(() {
-      _isResending = false;
-    });
-    return;
-  }
-
-  try {
-    // Log des paramètres pour le débogage
-    //"[CODE] input: ${widget.params?.toJson()}".log();
-    //params.toJson()
-    // if (widget?.userId != null && widget?.params != null) {
-    //TODO ICI
-    final userId =  getIt<AuthBloc>()?.userId;
-    if (userId != null && widget?.params != null) {
-      "[CODE] RESEND CONDE: ${widget.params?.toJson()}".log();
-
-      final registerParams = {
-        'for': 'SIGN_UP_VER',
-        'type': 'SMS',
-        'appSignature': '',
-        'phone': '+33665723525'
-      } as RegisterParams;
-
-      final result = getIt<AuthBloc>()?.repository.resendCode(userId, registerParams);
-
-    // Log du résultat pour le débogage
-    "$result".log();
-
-    // Vérifiez si le résultat est valide
-    if (result != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Code resent successfully!")),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Une erreur est survenue.")),
-      );
-    }
-    }
-    
-  } on DioException catch (e) {
-    // Gérer l'exception en utilisant Failure
-    final failure = Failure.fromRequest(e.response);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Une erreur est survenue.")),
-    );
-  } finally {
-    setState(() {
-      _isResending = false;
-    });
-  }
-}
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -110,13 +37,6 @@ Future<void> _resendCode() async {
             hintText: "fields.phoneHint".tr(),
           ),
           validator: FormBuilderValidators.required(),
-        ),
-        const SizedBox(height: kSpacing),
-        ElevatedButton(
-          onPressed: _isResending ? null : _resendCode,
-          child: _isResending
-              ? CircularProgressIndicator()
-              : Text("Resend").tr(),
         ),
       ],
     );
